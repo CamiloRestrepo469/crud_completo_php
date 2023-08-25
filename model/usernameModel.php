@@ -1,5 +1,5 @@
 <?php
-    class usernameModel {
+    class UsernameModel {
         private $PDO;
 
         public function __construct() {
@@ -9,17 +9,26 @@
         }
 
         public function insertar($nombre, $email) {
-            $statement = $this->PDO->prepare("INSERT INTO username (nombre, email) VALUES (:nombre, :email)");
-            $statement->bindParam(":nombre", $nombre);
-            $statement->bindParam(":email", $email);
+            $stament = $this->PDO->prepare("INSERT INTO username (nombre, email) VALUES (:nombre, :email)");
+            $stament->bindParam(":nombre", $nombre);
+            $stament->bindParam(":email", $email);
 
-            return ($statement->execute()) ? $this->PDO->lastInsertId() : false;
+            return ($stament->execute()) ? $this->PDO->lastInsertId() : false;
+        }
+
+        public function show($id){
+            $stament = $this->PDO->prepare("SELECT * FROM username WHERE id = :id LIMIT 1");
+            $stament->bindParam(":id",$id, PDO::PARAM_INT);
+            return $stament->fetch(PDO::FETCH_ASSOC);
+            // return ($stament->execute()) ? $stament->fetch(): false ;
         }
     }
 
 
+
+
 // ```php
-// class usernameModel {
+// class UsernameModel {
 //     private $PDO;
 
 //     public function __construct() {
@@ -27,31 +36,60 @@
 //         $con = new db();
 //         $this->PDO = $con->conexion();
 //     }
+// ```
 
+// - `class UsernameModel {`: Define una clase llamada `UsernameModel`.
+
+// - `private $PDO;`: Declara una propiedad privada llamada `$PDO` que se utilizará para almacenar la conexión PDO a la base de datos.
+
+// - `public function __construct() {`: Define el constructor de la clase.
+
+// - `require_once("/opt/lampp/htdocs/crud/crud_completo_php/config/db.php");`: Incluye el archivo `db.php`, que se espera que contenga la definición de la clase `db` que se utiliza para la conexión a la base de datos.
+
+// - `$con = new db();`: Crea una nueva instancia de la clase `db`, que se supone que maneja la conexión a la base de datos.
+
+// - `$this->PDO = $con->conexion();`: Llama al método `conexion()` de la instancia de `db` para obtener una conexión PDO a la base de datos y almacena esta conexión en la propiedad `$PDO`.
+
+// ```php
 //     public function insertar($nombre, $email) {
-//         $statement = $this->PDO->prepare("INSERT INTO username (nombre, email) VALUES (:nombre, :email)");
-//         $statement->bindParam(":nombre", $nombre);
-//         $statement->bindParam(":email", $email);
+//         $stament = $this->PDO->prepare("INSERT INTO username (nombre, email) VALUES (:nombre, :email)");
+//         $stament->bindParam(":nombre", $nombre);
+//         $stament->bindParam(":email", $email);
 
-//         return ($statement->execute()) ? $this->PDO->lastInsertId() : false;
+//         return ($stament->execute()) ? $this->PDO->lastInsertId() : false;
+//     }
+// ```
+
+// - `public function insertar($nombre, $email) {`: Define un método público llamado `insertar` que toma dos parámetros: `$nombre` y `$email`.
+
+// - `$stament = $this->PDO->prepare("INSERT INTO username (nombre, email) VALUES (:nombre, :email)");`: Prepara una consulta SQL para insertar un nuevo registro en la tabla "username" con los valores proporcionados. Los marcadores de posición `:nombre` y `:email` se utilizarán para evitar la inyección SQL.
+
+// - `$stament->bindParam(":nombre", $nombre);`: Vincula el valor de `$nombre` al marcador de posición `:nombre` en la consulta preparada.
+
+// - `$stament->bindParam(":email", $email);`: Vincula el valor de `$email` al marcador de posición `:email` en la consulta preparada.
+
+// - `return ($stament->execute()) ? $this->PDO->lastInsertId() : false;`: Ejecuta la consulta preparada. Si la ejecución es exitosa, devuelve el ID del último registro insertado (obtenido a través de `$this->PDO->lastInsertId()`). Si la ejecución falla, devuelve `false`.
+
+// ```php
+//     public function show($id){
+//         $stament = $this->PDO->prepare("SELECT * FROM username WHERE id = :id LIMIT 1");
+//         $stament->bindParam(":id",$id, PDO::PARAM_INT);
+//         return $stament->fetch(PDO::FETCH_ASSOC);
+//         // return ($stament->execute()) ? $stament->fetch(): false ;
 //     }
 // }
 // ```
 
-// Correcciones y cambios realizados:
+// - `public function show($id){`: Define un método público llamado `show` que toma un parámetro `$id`.
 
-// 1. En el constructor, cambiamos `__contruct` por `__construct`. Estabas usando la palabra incorrecta para el constructor de la clase.
+// - `$stament = $this->PDO->prepare("SELECT * FROM username WHERE id = :id LIMIT 1");`: Prepara una consulta SQL para seleccionar un registro de la tabla "username" con el ID proporcionado. Se usa el marcador de posición `:id` para evitar la inyección SQL.
 
-// 2. En la función `insertar`, corregimos el nombre de la variable de la declaración a `$statement` en lugar de `$stament`.
+// - `$stament->bindParam(":id",$id, PDO::PARAM_INT);`: Vincula el valor de `$id` al marcador de posición `:id` en la consulta preparada. También se especifica `PDO::PARAM_INT` para indicar que el valor debe ser tratado como un entero.
 
-// 3. En la declaración `prepare`, agregamos los nombres de columna en la tabla (`nombre` y `email`) a la lista de campos a insertar.
+// - `return $stament->fetch(PDO::FETCH_ASSOC);`: Ejecuta la consulta preparada y devuelve la primera fila del resultado como un array asociativo. `PDO::FETCH_ASSOC` asegura que el resultado se devuelva en ese formato.
 
-// 4. En la función `bindParam`, solo se pasa un parámetro por cada marcador de posición. En tu caso, solo había un marcador de posición `:nombre`, por lo que `$email` debe estar en su propio `bindParam`.
+// - El comentario `// return ($stament->execute()) ? $stament->fetch(): false ;` parece estar desactivado, pero es una alternativa válida que devuelve la fila solo si la ejecución tiene éxito o `false` si falla.
 
-// 5. Cambiamos `echo "conexxion";` por `return ...` en la función `insertar`. En su lugar, devolvemos el resultado de la ejecución y manejo de errores. Si deseas imprimir algo para verificar, puedes hacerlo fuera de esta función.
-
-// 6. Asegúrate de que la ruta al archivo `db.php` sea correcta y coincida con la ubicación real del archivo.
-
-// Estos cambios deberían hacer que tu clase `usernameModel` funcione correctamente y sea capaz de insertar nombres y correos electrónicos en la tabla "username".
+// En resumen, esta clase `UsernameModel` se utiliza para interactuar con la base de datos en relación a los datos de los usuarios. Proporciona métodos para insertar un nuevo usuario y para recuperar la información de un usuario existente por su ID. El uso de consultas preparadas y el manejo de PDO ayudan a prevenir problemas de seguridad como la inyección SQL.
 
 ?>
