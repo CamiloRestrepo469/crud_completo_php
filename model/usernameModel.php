@@ -27,6 +27,13 @@
             $stament = $this->PDO->prepare("SELECT * FROM username");
             return ($stament->execute()) ? $stament->fetchAll() :false;
         }
+        public function update($id,$nombre,$email){
+            $stament = $this->PDO->prepare("UPDATE username SET nombre = :nombre, email = :email WHERE id = :id");
+            $stament->bindParam(":id",$id);
+            $stament->bindParam(":nombre",$nombre);
+            $stament->bindParam(":email",$email);
+            return ($stament->excute()) ? $id : false;
+        }
     }
 
 

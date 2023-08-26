@@ -30,6 +30,10 @@ class UsernameController {
         // Obtener la lista de usuarios a través del modelo
         return ($this->model->index()) ? $this->model->index() : false;
     }
+
+    public function update($id, $nombre, $email){
+        return ($this->model->update($id,$nombre,$email) != false) ? header("Location:show.php?id=".$id) : header("Location:index.php");
+    }
 }
 ?>
 <?php
