@@ -9,8 +9,8 @@
         <label for="email" class="form-label">Email o Correo</label>
         <input type="email" name="email" class="form-control" id="email" placeholder="Email o Correo" required>
     </div>
-    <button type="submit" class="btn btn-primary" style="border-radius: 1rem;">Guardar</button>
-    <a class="btn btn-danger" href="index.php" style="border-radius: 1rem;">Cancelar</a>
+    <button type="submit" class="btn btn-primary rounded-pill">Guardar</button>
+    <a class="btn btn-danger rounded-pill" href="index.php">Cancelar</a>
 </form>
 
 <?php require_once ("/opt/lampp/htdocs/crud/crud_completo_php/view/head/footer.php"); ?>

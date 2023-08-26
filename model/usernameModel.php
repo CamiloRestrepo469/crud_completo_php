@@ -7,7 +7,7 @@
             $con = new db();
             $this->PDO = $con->conexion();
         }
-
+            // Insertar un nuevo usuario en la base de datos
         public function insertar($nombre, $email) {
             $stament = $this->PDO->prepare("INSERT INTO username (nombre, email) VALUES (:nombre, :email)");
             $stament->bindParam(":nombre", $nombre);
@@ -15,12 +15,17 @@
 
             return ($stament->execute()) ? $this->PDO->lastInsertId() : false;
         }
-
+            // Obtener los detalles de un usuario por su ID
         public function show($id){
             $stament = $this->PDO->prepare("SELECT * FROM username WHERE id = :id LIMIT 1");
             $stament->bindParam(":id",$id, PDO::PARAM_INT);
-            return $stament->fetch(PDO::FETCH_ASSOC);
-            // return ($stament->execute()) ? $stament->fetch(): false ;
+            // $stament->fetch();
+            return ($stament->execute()) ? $stament->fetch(PDO::FETCH_ASSOC): false ;
+        }
+            // Obtener todos los usuarios de la base de datos
+        public function index(){
+            $stament = $this->PDO->prepare("SELECT * FROM username");
+            return ($stament->execute()) ? $stament->fetchAll() :false;
         }
     }
 

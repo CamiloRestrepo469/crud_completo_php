@@ -1,21 +1,38 @@
 <?php
-    class UsernameController {
-        private $model;
-    
-        public function __construct() {
-            require_once("/opt/lampp/htdocs/crud/crud_completo_php/model/usernameModel.php");
-            $this->model = new UsernameModel();
-        }
-    
-        public function guardar($nombre, $email) {
-            $id = $this->model->insertar($nombre, $email);
-    
-            return ($id != false) ? header("Location: show.php?id=".$id) : header("Location: create.php");
-        }
-        public function show($id){
-            return ($this->model->show($id) != false) ? $this->model->show($id): header("Location:index.php");
-        }
+class UsernameController {
+    private $model;
+
+    // Constructor de la clase UsernameController
+    public function __construct() {
+        // Incluir el modelo de Username
+        require_once("/opt/lampp/htdocs/crud/crud_completo_php/model/usernameModel.php");
+        // Crear una instancia del modelo UsernameModel
+        $this->model = new UsernameModel();
     }
+
+    // Método para guardar un nuevo usuario
+    public function guardar($nombre, $email) {
+        // Insertar el usuario a través del modelo
+        $id = $this->model->insertar($nombre, $email);
+
+        // Redirigir según el resultado de la inserción
+        return ($id != false) ? header("Location: show.php?id=".$id) : header("Location: create.php");
+    }
+
+    // Método para mostrar los detalles de un usuario
+    public function show($id) {
+        // Obtener los detalles del usuario a través del modelo
+        return ($this->model->show($id) != false) ? $this->model->show($id) : header("Location: index.php");
+    }
+
+    // Método para mostrar una lista de usuarios
+    public function index() {
+        // Obtener la lista de usuarios a través del modelo
+        return ($this->model->index()) ? $this->model->index() : false;
+    }
+}
+?>
+<?php
 
     // class UsernameController {
         // Por supuesto, aquí está una explicación línea por línea del código en la clase `UsernameController` y su función:
