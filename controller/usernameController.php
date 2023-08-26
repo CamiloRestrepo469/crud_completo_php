@@ -34,6 +34,10 @@ class UsernameController {
     public function update($id, $nombre, $email){
         return ($this->model->update($id,$nombre,$email) != false) ? header("Location:show.php?id=".$id) : header("Location:index.php");
     }
+
+    public function delete($id){
+        return ($this->model->delete($id)) ? header("Location:index.php") : header("Location:show.php?id=".$id); 
+    }
 }
 ?>
 <?php

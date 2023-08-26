@@ -8,11 +8,7 @@ $rows = $obj->index(); // Obtener los registros de la base de datos
 
 <div class="text-center mb">
     <!-- Botón para regresar a la página de inicio -->
-    <a href="/crud/crud_completo_php/view/username/create.php" class="btn btn-primary rounded-pill me-2">Agregar</a>
-    
-    <!-- Botón para mostrar un modal de confirmación de eliminación -->
-    <button class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button>
-    
+    <a href="/crud/crud_completo_php/view/username/create.php" class="btn btn-primary rounded-pill me-2">Agregar</a>  
 </div>
 
 <!-- Tabla para mostrar los detalles del usuario -->
@@ -35,11 +31,13 @@ $rows = $obj->index(); // Obtener los registros de la base de datos
                     <td>
                         <a href="show.php?id=<?= $row['id']?>" class="btn btn-primary rounded-pill me-2">ver</a>
                         <a href="edit.php?id=<?= $row['id']?>" class="btn btn-success rounded-pill me-2">Actualizar</a>
-                                <!-- Botón para mostrar un modal de confirmación de eliminación -->
-                        <a class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a>
+                        
+                        <!-- Botón para mostrar un modal de confirmación de eliminación -->
+                        <!-- En cada botón de eliminación -->
+                        <a class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $row['id'] ?>">Eliminar</a>
 
                         <!-- Modal para confirmación de eliminación -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal<?= $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -47,19 +45,23 @@ $rows = $obj->index(); // Obtener los registros de la base de datos
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Una vez eliminado no se puede recuperar el detalle
+                                        <!-- Mostrar la información del registro que se desea eliminar -->
+                                        <p>Detalle a eliminar:</p>
+                                        <p>ID: <?= $row['id'] ?>, Nombre: <?= $row['nombre'] ?></p>
+                                        <p>Email: <?= $row['email'] ?></p>
+                                        <hr>
+                                        <p>Una vez eliminado no se puede recuperar el detalle.</p>
                                     </div>
                                     <div class="modal-footer">
                                         <!-- Botón para cerrar el modal -->
                                         <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cerrar</button>
                                         
                                         <!-- Botón para eliminar el detalle -->
-                                        <a href="delete.php?id=<?= $date['id']?>" class="btn btn-danger rounded-pill">Eliminar</a>
+                                        <a href="delete.php?id=<?= $row['id']?>" class="btn btn-danger rounded-pill">Eliminar</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </td>
                 </tr>
             <?php endforeach; ?>

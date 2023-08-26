@@ -18,19 +18,19 @@
     <div class="mb-3 row text-center">
         <label for="staticEmail" class="col-sm-2 col-form-label text-center">ID</label>
         <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?= $user['id']?>">
+        <input type="text" name="id" readonly class="form-control-plaintext" id="staticEmail" value="<?= $user['id']?>">
         </div>
     </div>
     <div class="mb-3 row">
         <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputNombre" value="<?= $user['nombre']?>">
+        <input type="text" name="nombre" class="form-control" id="inputNombre" value="<?= $user['nombre']?>">
         </div>
     </div>
     <div class="mb-3 row">
         <label for="inputemail" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
-        <input type="email" class="form-control" id="inputemail" value="<?= $user['email']?>">
+        <input type="email" name="email" class="form-control" id="inputemail" value="<?= $user['email']?>">
         </div>
     </div>
     <div class="container">
